@@ -1,0 +1,14 @@
+.nav-link-active {
+  color: #1877f2;
+  border-bottom: 4px solid #1877f2;
+  border-radius: 0;
+}
+
+.nav-link-inactive {
+  color: inherit;
+}
+
+.nav-link-inactive:hover {
+  background-color: inherit;
+  color: #0077b5;
+}
