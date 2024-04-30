@@ -13,7 +13,7 @@ const TouristSpotCard = () => {
 
   return (
     <>
-      <div className="container max-w-7xl mx-auto mb-10">
+      <div className="container max-w-7xl md:p-4 mx-auto mb-10">
         {/* section heading  */}
         <div className="flex flex-col items-center mb-10">
           <span className="font-cookie text-[#1877F2] text-2xl">

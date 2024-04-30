@@ -8,6 +8,7 @@ import MyList from "../pages/MyList";
 import NotFound from "../pages/NotFound";
 import Register from "../pages/Register";
 import TouristSpotDetails from "../pages/TouristSpotDetails";
+import PrivateRoute from "../utility/PrivateRoute";
 
 const Routes = createBrowserRouter([
   {
@@ -25,11 +26,19 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/AddTouristsSpot",
-        element: <AddTouristsSpot />,
+        element: (
+          <PrivateRoute>
+            <AddTouristsSpot />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/MyList",
-        element: <MyList />,
+        element: (
+          <PrivateRoute>
+            <MyList />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -41,7 +50,11 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        element: <TouristSpotDetails />,
+        element: (
+          <PrivateRoute>
+            <TouristSpotDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },
