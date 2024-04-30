@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
@@ -12,10 +13,11 @@ const LoginForm = () => {
         setLoading(false);
         navigate(location?.state ? location.state : "/");
         console.log(result);
+        toast.success("Login Successfully");
       })
       .catch((err) => {
         setLoading(false);
-        alert(err.message);
+        toast.error(err.message);
       });
   };
   return (

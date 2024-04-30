@@ -1,4 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
+
+import toast from "react-hot-toast";
 import "../App.css";
 import useAuth from "../Hooks/useAuth";
 
@@ -7,8 +9,12 @@ const Navbar = () => {
   const handleLogOut = () => {
     // log out code will be here
     logOut()
-      .then(() => alert("Log Out Successfully"))
-      .catch((error) => alert(error.message));
+      .then(() => {
+        toast.success("Log Out Successfully");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (
@@ -154,7 +160,7 @@ const Navbar = () => {
         {/* user, login & register will be here */}
         <div className="navbar-end">
           {user ? (
-            <div className="dropdown dropdown-end">
+            <div className="dropdown dropdown-end z-50">
               <div
                 tabIndex={0}
                 role="button"
@@ -163,7 +169,7 @@ const Navbar = () => {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src="https://i.insider.com/54c26b986bb3f7304c3f9ba6?width=2000&format=jpeg&auto=webp"
+                    src={user.photoURL}
                   />
                 </div>
               </div>
@@ -172,7 +178,7 @@ const Navbar = () => {
                 className="mt-3 z-[1]  shadow menu menu-sm dropdown-content bg-base-100 border rounded-box p-2 w-52"
               >
                 <div className="h-32 flex flex-col items-center justify-evenly">
-                  <p className="text-xl bold">Elon Musk</p>
+                  <p className="text-xl bold"> {user.displayName} </p>
 
                   <button onClick={handleLogOut} className="btn ">
                     Log Out
@@ -181,7 +187,7 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <div className="flex font-semibold gap-6">
+            <div className=" text-base font-semibold flex gap-6 menu-horizontal px-1">
               <NavLink
                 to={"/login"}
                 className={({ isActive, isPending }) =>
