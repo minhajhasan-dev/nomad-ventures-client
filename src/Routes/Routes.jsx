@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import MyList from "../pages/MyList";
 import NotFound from "../pages/NotFound";
 import Register from "../pages/Register";
+import TouristSpotDetails from "../pages/TouristSpotDetails";
 
 const Routes = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const Routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/details/:id",
+        element: <TouristSpotDetails />,
       },
     ],
   },
