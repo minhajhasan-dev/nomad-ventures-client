@@ -117,7 +117,7 @@ const AllTouristsSpot = () => {
         </div>
       </div>
       {/* short functionality here */}
-      <div className="flex max-w-7xl mx-auto justify-end">
+      <div className="flex max-w-7xl mb-2  mx-auto lg:justify-end justify-center">
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
@@ -154,7 +154,7 @@ const AllTouristsSpot = () => {
           >
             <img
               className="w-full h-40 object-cover object-center"
-              src={card.imageUrl}
+              src={card.imageUrl || "https://media.moddb.com/images/articles/1/73/72743/image_error_full.png"}
               alt="Place"
             />
             <div className="p-4 card-body flex flex-col justify-between">
