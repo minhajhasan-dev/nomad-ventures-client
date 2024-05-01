@@ -45,9 +45,12 @@ const AddTouristSpotForm = () => {
       });
   };
   return (
-    <div className="">
-      <form onSubmit={handleAdd}>
-        <div className="md:flex gap-5 m-4">
+    <div
+      className="border lg:max-w-7xl  rounded-xl p-10  shadow-xl m-4 mb-20
+      mx-auto"
+    >
+      <form onSubmit={handleAdd} className="  ">
+        <div className="md:flex font-semibold  mx-auto  rounded-xl p-5 gap-5 ">
           <div className="flex-1">
             <label className="form-control">
               <div className="label">
@@ -73,7 +76,7 @@ const AddTouristSpotForm = () => {
               </div>
               <input
                 type="text"
-                placeholder="Type here"
+                placeholder="Location Name"
                 className="input input-bordered w-full"
                 name="location"
               />
@@ -85,7 +88,7 @@ const AddTouristSpotForm = () => {
               </div>
               <input
                 type="text"
-                placeholder="Type here"
+                placeholder="Tourist Spot Name"
                 className="input input-bordered w-full"
                 name="touristSpotName"
               />
@@ -97,7 +100,7 @@ const AddTouristSpotForm = () => {
               </div>
               <input
                 type="text"
-                placeholder="Type here"
+                placeholder="Image URL"
                 className="input input-bordered w-full"
                 name="imageUrl"
               />
@@ -109,7 +112,7 @@ const AddTouristSpotForm = () => {
               </div>
               <input
                 type="text"
-                placeholder="Type here"
+                placeholder="Average Cost in USD"
                 className="input input-bordered w-full"
                 name="averageCost"
               />
@@ -120,7 +123,7 @@ const AddTouristSpotForm = () => {
               </div>
               <input
                 type="text"
-                placeholder="Type here"
+                placeholder="Keep it short and sweet!"
                 className="input input-bordered w-full"
                 name="shortDescription"
               />
@@ -152,7 +155,7 @@ const AddTouristSpotForm = () => {
               </div>
               <input
                 type="text"
-                placeholder="Type here"
+                placeholder="Travel Time in Days"
                 className="input input-bordered w-full"
                 name="travelTime"
               />
@@ -164,7 +167,7 @@ const AddTouristSpotForm = () => {
               </div>
               <input
                 type="text"
-                placeholder="Type here"
+                placeholder="Total Visitors in Number"
                 className="input input-bordered w-full"
                 name="totalVisitorsPerYear"
               />
@@ -176,7 +179,7 @@ const AddTouristSpotForm = () => {
               </div>
               <input
                 type="email"
-                placeholder="Type here"
+                placeholder="Your Email Address"
                 className="input input-bordered w-full"
                 name="userEmail"
               />
@@ -188,7 +191,7 @@ const AddTouristSpotForm = () => {
               </div>
               <input
                 type="text"
-                placeholder="Type here"
+                placeholder="Your Username"
                 className="input input-bordered w-full"
                 name="userName"
               />

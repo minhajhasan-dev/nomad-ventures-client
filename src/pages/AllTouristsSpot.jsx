@@ -12,6 +12,16 @@ const AllTouristsSpot = () => {
         setCard(data);
       });
   }, []);
+
+  function formatViews(number) {
+    if (number >= 1000000) {
+      return (number / 1000000).toFixed(1) + "M";
+    } else if (number >= 1000) {
+      return (number / 1000).toFixed(1) + "K";
+    } else {
+      return number;
+    }
+  }
   return (
     <div>
       <div className="flex flex-col items-center mt-5 mb-10">
@@ -94,11 +104,11 @@ const AllTouristsSpot = () => {
         </div>
       </div>
       {/* all tourist spot here  */}
-      <div className="grid justify-items-center md:space-y-0 space-y-5 lg:grid-cols-4 md:gap-6 md:grid-cols-3 grid-cols-1">
+      <div className="grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8  lg:max-w-7xl md:max-w-[670px] md:gap-20 mx-auto justify-items-center md:space-y-0 space-y-5  gap-10 mb-10   grid-cols-1 md:p-4">
         {cards.map((card) => (
           <div
             key={card._id}
-            className="max-w-[300px] card bg-white shadow-lg rounded-lg overflow-hidden border  "
+            className="w-[292px] lg:w-[292px] md:w-[230px] md:h-auto card bg-white shadow-lg rounded-lg overflow-hidden border  "
           >
             <img
               className="w-full h-40 object-cover object-center"
@@ -109,7 +119,7 @@ const AllTouristsSpot = () => {
               <div className="">
                 <div className="text-sm flex items-center justify-between font-semibold text-gray-800 mb-2">
                   <div className="flex gap-1 items-center">
-                    <FaLocationDot />
+                    <FaLocationDot className="text-blue-500"/>
                     {card.location}
                   </div>
                   <div className="flex text-blue-500">
@@ -126,24 +136,40 @@ const AllTouristsSpot = () => {
                 </h2>
 
                 <div className="flex justify-around">
-                  <div>
-                    <p className="text-sm text-gray-700 leading-snug">
-                      {card.shortDescription}
-                    </p>
-                    <p className="text-sm text-gray-700 leading-snug">
-                      {card.averageCost}
-                    </p>
-                    <p className="text-sm text-gray-700 leading-snug">
-                      {card.seasonality}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-700 leading-snug">
-                      {card.totalVisitorsPerYear}
-                    </p>
-                    <p className="text-sm text-gray-700 leading-snug">
-                      {card.travelTime}
-                    </p>
+                  <div className="flex justify-around">
+                    <div className="flex justify-around">
+                      <div className="flex flex-wrap font-semibold  gap-1  w-full">
+                        <div className="text-sm p-1 w-full ">
+                          {card.shortDescription}
+                        </div>
+                        <div className="flex text-sm gap-6 w-full justify-between">
+                          <div className=" p-1 w-full flex flex-col ">
+                            <label className="text-xs font-normal">Cost</label>$
+                            {card.averageCost}
+                          </div>
+                          <div className=" p-1 w-full flex flex-col ">
+                            <label className="text-xs font-normal">
+                              Duration
+                            </label>
+                            {card.travelTime} Days
+                          </div>
+                        </div>
+                        <div className="text-sm flex gap-6 w-full justify-between">
+                          <div className=" p-1 w-full flex flex-col">
+                            <label className="text-xs font-normal">
+                              Visitor
+                            </label>
+                            {formatViews(card.totalVisitorsPerYear)} / Year
+                          </div>
+                          <div className=" p-1 w-full flex flex-col">
+                            <label className="text-xs font-normal">
+                              Season
+                            </label>
+                            {card.seasonality}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
