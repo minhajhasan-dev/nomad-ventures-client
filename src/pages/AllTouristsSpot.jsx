@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 const AllTouristsSpot = () => {
   const [cards, setCard] = useState([]);
+  const [sortOrder, setSortOrder] = useState("");
   useEffect(() => {
     fetch("http://localhost:5000/touristSpot")
       .then((res) => res.json())
@@ -12,6 +14,17 @@ const AllTouristsSpot = () => {
         setCard(data);
       });
   }, []);
+
+  const sortedCards = [...cards].sort((a, b) => {
+    switch (sortOrder) {
+      case "asc":
+        return a.averageCost - b.averageCost;
+      case "desc":
+        return b.averageCost - a.averageCost;
+      default:
+        return 0;
+    }
+  });
 
   function formatViews(number) {
     if (number >= 1000000) {
@@ -103,9 +116,38 @@ const AllTouristsSpot = () => {
           </svg>
         </div>
       </div>
+      {/* short functionality here */}
+      <div className="flex max-w-7xl mx-auto justify-end">
+        <div className="dropdown dropdown-end">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn bg-[#2563EB] hover:bg-[#2563EB] w-36 text-white  m-1 flex gap-2"
+          >
+            Sort <IoIosArrowDropdownCircle />
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 border border-blue-100 rounded-box w-52"
+          >
+            <li
+              className="hover:bg-blue-500 rounded-xl hover:text-white"
+              onClick={() => setSortOrder("asc")}
+            >
+              <a>Sort by Ascending</a>
+            </li>
+            <li
+              className="hover:bg-blue-500 rounded-xl hover:text-white"
+              onClick={() => setSortOrder("desc")}
+            >
+              <a>Sort by Descending</a>
+            </li>
+          </ul>
+        </div>
+      </div>
       {/* all tourist spot here  */}
       <div className="grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8  lg:max-w-7xl md:max-w-[670px] md:gap-20 mx-auto justify-items-center md:space-y-0 space-y-5  gap-10 mb-10   grid-cols-1 md:p-4">
-        {cards.map((card) => (
+        {sortedCards.map((card) => (
           <div
             key={card._id}
             className="w-[292px] lg:w-[292px] md:w-[230px] md:h-auto card bg-white shadow-lg rounded-lg overflow-hidden border  "
@@ -119,7 +161,7 @@ const AllTouristsSpot = () => {
               <div className="">
                 <div className="text-sm flex items-center justify-between font-semibold text-gray-800 mb-2">
                   <div className="flex gap-1 items-center">
-                    <FaLocationDot className="text-blue-500"/>
+                    <FaLocationDot className="text-blue-500" />
                     {card.location}
                   </div>
                   <div className="flex text-blue-500">
