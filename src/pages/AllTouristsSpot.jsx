@@ -154,7 +154,10 @@ const AllTouristsSpot = () => {
           >
             <img
               className="w-full h-40 object-cover object-center"
-              src={card.imageUrl || "https://media.moddb.com/images/articles/1/73/72743/image_error_full.png"}
+              src={
+                card.imageUrl ||
+                "https://media.moddb.com/images/articles/1/73/72743/image_error_full.png"
+              }
               alt="Place"
             />
             <div className="p-4 card-body flex flex-col justify-between">
@@ -217,7 +220,7 @@ const AllTouristsSpot = () => {
               </div>
               <div className="mt-3 card-actions items-center flex justify-center">
                 <Link
-                  to={`/details/${card._id}`}
+                  to={`/details/v2/${card._id}`}
                   className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md transition duration-300 ease-in-out text-sm"
                 >
                   View Details

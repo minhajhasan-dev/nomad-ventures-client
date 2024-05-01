@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { FaArrowAltCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
-import { MdLibraryAdd } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
 
 const TouristSpotDetails = () => {
@@ -49,7 +48,10 @@ const TouristSpotDetails = () => {
                       {card.short_description || "No Description Found"}
                     </p>
                     <div className="flex justify-center gap-1">
-                      <Link to={"/"} className="btn btn-primary ">
+                      <Link
+                        to={"/"}
+                        className="btn bg-blue-500 text-white border-0 hover:bg-blue-600"
+                      >
                         <FaArrowAltCircleLeft />
                         Go Home
                       </Link>
@@ -68,10 +70,13 @@ const TouristSpotDetails = () => {
                 </div>
 
                 <div className="my-8 flex justify-center">
-                  <button className="btn btn-primary ">
-                    <MdLibraryAdd />
-                    Add To LIst
-                  </button>
+                  <Link
+                    to={"/MyList"}
+                    className="btn bg-blue-500 hover:bg-blue-600 text-white "
+                  >
+                    Go To LIst
+                    <FaArrowCircleRight />
+                  </Link>
                 </div>
               </div>
             </>

@@ -1,6 +1,9 @@
 import toast from "react-hot-toast";
+import { MdAddToPhotos } from "react-icons/md";
+import useAuth from "../Hooks/useAuth";
 
 const AddTouristSpotForm = () => {
+  const { user } = useAuth();
   const handleAdd = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -59,6 +62,7 @@ const AddTouristSpotForm = () => {
               <select
                 className="select select-bordered w-full"
                 name="countryName"
+                required
               >
                 <option value="">Select a country</option>
                 <option value="Bangladesh">Bangladesh</option>
@@ -79,6 +83,7 @@ const AddTouristSpotForm = () => {
                 placeholder="Location Name"
                 className="input input-bordered w-full"
                 name="location"
+                required
               />
             </label>
 
@@ -91,6 +96,7 @@ const AddTouristSpotForm = () => {
                 placeholder="Tourist Spot Name"
                 className="input input-bordered w-full"
                 name="touristSpotName"
+                required
               />
             </label>
 
@@ -115,18 +121,18 @@ const AddTouristSpotForm = () => {
                 placeholder="Average Cost in USD"
                 className="input input-bordered w-full"
                 name="averageCost"
+                required
               />
             </label>
             <label className="form-control">
               <div className="label">
                 <span className="label-text">Short Description</span>
               </div>
-              <input
-                type="text"
+              <textarea
+                className="textarea textarea-md textarea-bordered"
                 placeholder="Keep it short and sweet!"
-                className="input input-bordered w-full"
                 name="shortDescription"
-              />
+              ></textarea>
             </label>
           </div>
 
@@ -138,6 +144,7 @@ const AddTouristSpotForm = () => {
               <select
                 name="seasonality"
                 className="select select-bordered w-full"
+                required
               >
                 <option value="">Select a season</option>
                 <option value="Spring">Spring</option>
@@ -158,6 +165,7 @@ const AddTouristSpotForm = () => {
                 placeholder="Travel Time in Days"
                 className="input input-bordered w-full"
                 name="travelTime"
+                required
               />
             </label>
 
@@ -170,6 +178,7 @@ const AddTouristSpotForm = () => {
                 placeholder="Total Visitors in Number"
                 className="input input-bordered w-full"
                 name="totalVisitorsPerYear"
+                required
               />
             </label>
 
@@ -180,8 +189,10 @@ const AddTouristSpotForm = () => {
               <input
                 type="email"
                 placeholder="Your Email Address"
+                defaultValue={`${user?.email}`}
                 className="input input-bordered w-full"
                 name="userEmail"
+                required
               />
             </label>
 
@@ -194,17 +205,20 @@ const AddTouristSpotForm = () => {
                 placeholder="Your Username"
                 className="input input-bordered w-full"
                 name="userName"
+                required
               />
             </label>
           </div>
         </div>
 
         <div className="flex justify-center mb-4">
-          <input
+          <button
             type="submit"
-            className="btn bg-blue-500 text-white"
-            value={`Add Tourist Spot`}
-          />
+            className="btn bg-blue-500 hover:bg-blue-600 text-white"
+          >
+            <MdAddToPhotos />
+            Add Tourist Spot
+          </button>
         </div>
       </form>
     </div>

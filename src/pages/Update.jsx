@@ -1,31 +1,68 @@
 import { useEffect, useState } from "react";
-import { MdDelete, MdEditDocument } from "react-icons/md";
-import { Link } from "react-router-dom";
-import useAuth from "../Hooks/useAuth";
+import toast from "react-hot-toast";
+import { ImUpload2 } from "react-icons/im";
+import { useParams } from "react-router-dom";
 
-const MyList = () => {
-  const [data, setData] = useState([]);
-  // import user from context
-  const { user } = useAuth();
+const Update = () => {
+  const { id } = useParams();
+  console.log(id);
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const countryName = form.countryName.value;
+    const location = form.location.value;
+    const touristSpotName = form.touristSpotName.value;
+    const imageUrl = form.imageUrl.value;
+    const shortDescription = form.shortDescription.value;
+    const averageCost = form.averageCost.value;
+    const seasonality = form.seasonality.value;
+    const travelTime = form.travelTime.value;
+    const totalVisitorsPerYear = form.totalVisitorsPerYear.value;
+    const updatedInfo = {
+      countryName,
+      location,
+      touristSpotName,
+      imageUrl,
+      shortDescription,
+      averageCost,
+      seasonality,
+      travelTime,
+      totalVisitorsPerYear,
+    };
+    fetch(`http://localhost:5000/touristSpot/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Data Updated Successfully");
+          form.reset();
+        } else {
+          toast.error("Please Edit Something to Update");
+        }
+      });
+  };
+  const [currentData, setCurrentData] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/touristSpot")
       .then((res) => res.json())
       .then((data) => {
-        const foundData = data.filter((item) => item.userEmail === user.email);
-        setData(foundData);
+        const foundCard = data.find((item) => item._id === id);
+        setCurrentData(foundCard);
       });
-  }, [user.email]);
-  console.log(data);
-  console.log(user.email);
+  }, [id]);
 
   return (
-    <div>
-      {/* heading here */}
+    <>
       <div className="flex flex-col items-center mt-5 mb-10">
         <span className="font-cookie text-[#1877F2] text-2xl">
           Explore The World
         </span>
-        <h2 className="text-3xl font-semibold">My List</h2>
+        <h2 className="text-3xl font-semibold">Update Tourist Spot</h2>
         <div className="">
           <svg
             width="370"
@@ -100,68 +137,158 @@ const MyList = () => {
           </svg>
         </div>
       </div>
-      {/* table here  */}
-      <div className="container max-w-5xl mx-auto overflow-x-auto">
-        <table className="table md:table-md  table-xs	">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>Spot Name</th>
-              <th>Location</th>
-              <th>Country</th>
-              <th className="text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row 1 */}
-            {data.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar md:flex hidden">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src={
-                            item.imageUrl ||
-                            "https://w0.peakpx.com/wallpaper/778/9/HD-wallpaper-404-error-404-error-glitch-glitch.jpg"
-                          }
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold"> {item.touristSpotName} </div>
-                    </div>
-                  </div>
-                </td>
-                <td className="">
-                  <div className="font-bold">{item.location}</div>
-                </td>
-                <td>
-                  <div className="font-bold">{item.countryName}</div>
-                </td>
-                <th>
-                  <div className="flex justify-center gap-3">
-                    <Link
-                      to={`/update/${item._id}`}
-                      className="btn  bg-blue-500 hover:bg-blue-600 text-white btn-sm"
-                    >
-                      <MdEditDocument />
-                      <div className="md:block hidden">Update</div>
-                    </Link>
-                    <button className="btn bg-blue-500 hover:bg-blue-600 text-white btn-sm">
-                      <MdDelete />
-                      <div className="md:block hidden">Delete</div>
-                    </button>
-                  </div>
-                </th>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div
+        className="border lg:max-w-7xl  rounded-xl p-10  shadow-xl m-4 mb-20
+    mx-auto"
+      >
+        <form onSubmit={handleUpdate} className="  ">
+          <div className="md:flex font-semibold  mx-auto  rounded-xl p-5 gap-5 ">
+            <div className="flex-1">
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Country Name</span>
+                </div>
+                <select
+                  className="select select-bordered w-full"
+                  name="countryName"
+                >
+                  <option value={currentData.countryName}>
+                    {currentData.countryName}
+                  </option>
+                  <option value="Bangladesh">Bangladesh</option>
+                  <option value="Thailand">Thailand</option>
+                  <option value="Indonesia">Indonesia</option>
+                  <option value="Malaysia">Malaysia</option>
+                  <option value="Vietnam">Vietnam</option>
+                  <option value="Cambodia">Cambodia</option>
+                </select>
+              </label>
+
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Location</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Location Name"
+                  className="input input-bordered w-full"
+                  name="location"
+                  defaultValue={currentData.location}
+                />
+              </label>
+
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Tourist Spot Name</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Tourist Spot Name"
+                  className="input input-bordered w-full"
+                  name="touristSpotName"
+                  defaultValue={currentData.touristSpotName}
+                />
+              </label>
+
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Average Cost</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Average Cost in USD"
+                  className="input input-bordered w-full"
+                  name="averageCost"
+                  defaultValue={currentData.averageCost}
+                />
+              </label>
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Short Description</span>
+                </div>
+                <textarea
+                  className="textarea textarea-md textarea-bordered"
+                  placeholder="Keep it short and sweet!"
+                  name="shortDescription"
+                  defaultValue={currentData.shortDescription}
+                ></textarea>
+              </label>
+            </div>
+
+            <div className="flex-1">
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Seasonality</span>
+                </div>
+                <select
+                  name="seasonality"
+                  className="select select-bordered w-full"
+                >
+                  <option value={currentData.seasonality}>
+                    {currentData.seasonality}
+                  </option>
+                  <option value="Spring">Spring</option>
+                  <option value="Summer">Summer</option>
+                  <option value="Autumn">Autumn</option>
+                  <option value="Winter">Winter</option>
+                  <option value="Monsoon">Monsoon</option>
+                  <option value="Dry">Dry</option>
+                </select>
+              </label>
+
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Travel Time</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Travel Time in Days"
+                  className="input input-bordered w-full"
+                  name="travelTime"
+                  defaultValue={currentData.travelTime}
+                />
+              </label>
+
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Total Visitors per Year</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Total Visitors in Number"
+                  className="input input-bordered w-full"
+                  name="totalVisitorsPerYear"
+                  defaultValue={currentData.totalVisitorsPerYear}
+                />
+              </label>
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Image URL</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Image URL"
+                  className="input input-bordered w-full"
+                  name="imageUrl"
+                  defaultValue={currentData.imageUrl}
+                />
+              </label>
+            </div>
+          </div>
+
+          <div className="flex justify-center mb-4">
+            <button
+              type="submit"
+              className="btn bg-blue-500 hover:bg-blue-600 text-white"
+            >
+              <ImUpload2 />
+              Update
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
+    </>
   );
 };
 
-export default MyList;
+export default Update;
