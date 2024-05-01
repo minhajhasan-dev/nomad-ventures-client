@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MdDelete, MdEditDocument } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
 
 const MyList = () => {
@@ -18,8 +19,38 @@ const MyList = () => {
   console.log(data);
   console.log(user.email);
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/touristSpot/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            // setting the data after deleting the item
+            setData((data) => data.filter((item) => item._id !== id));
+          });
+      } else {
+        Swal.fire("Cancelled", "Your file is safe :)", "error");
+      }
+    });
+  };
+
   return (
-    <div>
+    <div className="min-h-[calc(100vh-280px)]">
       {/* heading here */}
       <div className="flex flex-col items-center mt-5 mb-10">
         <span className="font-cookie text-[#1877F2] text-2xl">
@@ -151,7 +182,12 @@ const MyList = () => {
                     </Link>
                     <button className="btn bg-blue-500 hover:bg-blue-600 text-white btn-sm">
                       <MdDelete />
-                      <div className="md:block hidden">Delete</div>
+                      <div
+                        onClick={() => handleDelete(item._id)}
+                        className="md:block hidden"
+                      >
+                        Delete
+                      </div>
                     </button>
                   </div>
                 </th>
