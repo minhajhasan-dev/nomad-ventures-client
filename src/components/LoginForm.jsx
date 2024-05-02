@@ -5,8 +5,27 @@ import useAuth from "../Hooks/useAuth";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { user, googleSignIn, setLoading } = useAuth();
+  const { user, googleSignIn, setLoading, loginWithEmail,loginWithGithub } = useAuth();
   console.log(user);
+
+  // form function here
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    loginWithEmail(email, password)
+      .then(() => {
+        setLoading(false);
+        navigate(location?.state ? location.state : "/");
+        toast.success("Login Successfully");
+      })
+      .catch(() => {
+        setLoading(false);
+        toast.error("Invalid email or password");
+      });
+  };
+
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
@@ -15,16 +34,31 @@ const LoginForm = () => {
         console.log(result);
         toast.success("Login Successfully");
       })
-      .catch((err) => {
+      .catch(() => {
         setLoading(false);
-        toast.error(err.message);
+        toast.error('Something went wrong');
       });
   };
+
+const handleGithubSignIn = () => {
+    loginWithGithub()
+      .then((result) => {
+        setLoading(false);
+        navigate(location?.state ? location.state : "/");
+        console.log(result);
+        toast.success("Login Successfully");
+      })
+      .catch(() => {
+        setLoading(false);
+        toast.error('Something went wrong');
+      });
+  };
+
   return (
     <div className="flex flex-col items-center justify-center md:min-h-[750px] bg-gray-100">
-      <div className="max-w-md w-full px-6 py-8 bg-white shadow-md rounded-md">
+      <div className="max-w-md w-full px-6 py-8 bg-white shadow-md rounded-xl">
         <h2 className="text-2xl font-bold mb-6">Login</h2>
-        <form>
+        <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -72,7 +106,7 @@ const LoginForm = () => {
             Login with Google
           </span>
         </button>
-        <button className="w-full bg-gray-800 text-white py-2 px-4 mt-2 rounded-md hover:bg-gray-900 focus:outline-none">
+        <button onClick={handleGithubSignIn} className="w-full bg-gray-800 text-white py-2 px-4 mt-2 rounded-md hover:bg-gray-900 focus:outline-none">
           <span className="flex justify-center items-center gap-3">
             <FaGithub />
             Login with Github

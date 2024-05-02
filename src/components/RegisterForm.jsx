@@ -1,6 +1,12 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
+  const { createUser, updateUserProfile } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
@@ -30,7 +36,26 @@ const RegisterForm = () => {
     const email = form.email.value;
     const photoUrl = form.photoUrl.value;
     const password = form.password.value;
-    console.log(name, email, photoUrl, password);
+
+    // create user with email and password
+    createUser(email, password)
+      .then(() => {
+        // Signed in
+        // update user profile
+        updateUserProfile(name, photoUrl)
+          .then(() => {
+            toast.success("User registered successfully");
+            navigate("/");
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+
+    // Minhaj@123
 
     // Password validation using regex
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
@@ -40,14 +65,11 @@ const RegisterForm = () => {
       );
       return;
     }
-
-    // Continue with form submission
-    // ...
   };
 
   return (
     <div className="flex flex-col items-center md:min-h-[750px]  justify-center  bg-gray-100">
-      <div className="max-w-md w-full  px-6 py-8 bg-white shadow-md rounded-md">
+      <div className="max-w-md w-full  px-6 py-8 bg-white shadow-md rounded-xl">
         <h2 className="text-2xl font-bold mb-6">Register</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

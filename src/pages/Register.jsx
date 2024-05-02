@@ -1,9 +1,12 @@
+import { Fade } from "react-awesome-reveal";
 import RegisterForm from "../components/RegisterForm";
 
 const Register = () => {
   return (
     <div className="">
-      <RegisterForm />
+      <Fade>
+        <RegisterForm />
+      </Fade>
     </div>
   );
 };

@@ -1,9 +1,13 @@
+import { Fade } from "react-awesome-reveal";
 import LoginForm from "../components/LoginForm";
 
 const Login = () => {
   return (
     <div>
-      <LoginForm />
+      <Fade>
+        {" "}
+        <LoginForm />
+      </Fade>
     </div>
   );
 };

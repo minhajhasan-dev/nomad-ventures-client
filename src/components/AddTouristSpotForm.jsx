@@ -4,6 +4,8 @@ import useAuth from "../Hooks/useAuth";
 
 const AddTouristSpotForm = () => {
   const { user } = useAuth();
+  const userImage = user?.photoURL;
+  console.log(userImage);
   const handleAdd = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -30,7 +32,10 @@ const AddTouristSpotForm = () => {
       totalVisitorsPerYear,
       userEmail,
       userName,
+      userImage,
     };
+    // we need to send this image link to the database as well
+
     fetch("http://localhost:5000/touristSpot", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -43,10 +48,11 @@ const AddTouristSpotForm = () => {
         }
         form.reset();
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error("Failed to add tourist spot");
       });
   };
+
   return (
     <div
       className="border border-blue-400 lg:max-w-7xl  rounded-xl p-10  shadow-xl m-4 mb-20
