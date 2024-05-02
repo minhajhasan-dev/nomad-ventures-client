@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { MdDelete, MdEditDocument } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
 
 const MyList = () => {
   const [data, setData] = useState([]);
+  const { loading, setLoading } = useAuth();
   // import user from context
   const { user } = useAuth();
   useEffect(() => {
@@ -13,9 +15,11 @@ const MyList = () => {
       .then((res) => res.json())
       .then((data) => {
         const foundData = data.filter((item) => item.userEmail === user.email);
+        setLoading(true);
         setData(foundData);
+        setLoading(false);
       });
-  }, [user.email]);
+  }, [user.email, setLoading]);
   console.log(data);
   console.log(user.email);
 
@@ -134,7 +138,6 @@ const MyList = () => {
       {/* table here  */}
       <div className="container max-w-5xl mx-auto overflow-x-auto">
         <table className="table md:table-md  table-xs	">
-          {/* head */}
           <thead>
             <tr>
               <th>Spot Name</th>
@@ -144,55 +147,66 @@ const MyList = () => {
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            {data.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar md:flex hidden">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src={
-                            item.imageUrl ||
-                            "https://w0.peakpx.com/wallpaper/778/9/HD-wallpaper-404-error-404-error-glitch-glitch.jpg"
-                          }
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold"> {item.touristSpotName} </div>
-                    </div>
-                  </div>
+            {loading ? (
+              <tr>
+                <td className="flex h-36 w-[800px] col-span-4 text-center justify-center items-center py-10">
+                  <ClipLoader color="#1f68d6" size={50} />
                 </td>
-                <td className="">
-                  <div className="font-bold">{item.location}</div>
-                </td>
-                <td>
-                  <div className="font-bold">{item.countryName}</div>
-                </td>
-                <th>
-                  <div className="flex justify-center gap-3">
-                    <Link
-                      to={`/update/${item._id}`}
-                      className="btn  bg-blue-500 hover:bg-blue-600 text-white btn-sm"
-                    >
-                      <MdEditDocument />
-                      <div className="md:block hidden">Update</div>
-                    </Link>
-                    <button className="btn bg-blue-500 hover:bg-blue-600 text-white btn-sm">
-                      <MdDelete />
-                      <div
-                        onClick={() => handleDelete(item._id)}
-                        className="md:block hidden"
-                      >
-                        Delete
-                      </div>
-                    </button>
-                  </div>
-                </th>
               </tr>
-            ))}
+            ) : (
+              data.map((item) => (
+                <tr key={item._id}>
+                  {" "}
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar md:flex hidden">
+                        <div className="mask rounded-xl mask-rounded-full w-12 h-12">
+                          <img
+                            src={
+                              item.imageUrl ||
+                              "https://w0.peakpx.com/wallpaper/778/9/HD-wallpaper-404-error-404-error-glitch-glitch.jpg"
+                            }
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">
+                          {" "}
+                          {item.touristSpotName}{" "}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="">
+                    <div className="font-bold">{item.location}</div>
+                  </td>
+                  <td>
+                    <div className="font-bold">{item.countryName}</div>
+                  </td>
+                  <th>
+                    <div className="flex justify-center gap-3">
+                      <Link
+                        to={`/update/${item._id}`}
+                        className="btn  bg-blue-500 hover:bg-blue-600 text-white btn-sm"
+                      >
+                        <MdEditDocument />
+                        <div className="md:block hidden">Update</div>
+                      </Link>
+                      <button className="btn bg-blue-500 hover:bg-blue-600 text-white btn-sm">
+                        <MdDelete />
+                        <div
+                          onClick={() => handleDelete(item._id)}
+                          className="md:block hidden"
+                        >
+                          Delete
+                        </div>
+                      </button>
+                    </div>
+                  </th>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

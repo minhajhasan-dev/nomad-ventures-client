@@ -2,14 +2,20 @@ import { useEffect, useState } from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import useAuth from "../Hooks/useAuth";
 
 const TouristSpotCard = () => {
   const [cards, setCards] = useState([]);
+  const { loading, setLoading } = useAuth();
   useEffect(() => {
     fetch("http://localhost:5000/cards")
       .then((res) => res.json())
-      .then((data) => setCards(data));
-  }, []);
+      .then((data) => {
+        setLoading(false);
+        setCards(data);
+      });
+  }, [setLoading]);
 
   return (
     <>
@@ -96,8 +102,60 @@ const TouristSpotCard = () => {
         </div>
 
         {/* cards here container div  */}
+        {loading ? (
+          <div className="flex justify-center items-center h-[calc(100vh-500px)]">
+            <ClipLoader color="#1f68d6" size={50} />
+          </div>
+        ) : (
+          <div className="grid justify-items-center md:space-y-0 space-y-5 lg:grid-cols-4 md:gap-6 md:grid-cols-3 grid-cols-1">
+            {cards.map((card) => (
+              <div
+                key={card._id}
+                className="max-w-[300px] card bg-white shadow-lg rounded-lg overflow-hidden border  "
+              >
+                <img
+                  className="w-full h-40 object-cover object-center"
+                  src={card.photoURL}
+                  alt="Place"
+                />
+                <div className="p-4 card-body flex flex-col justify-between">
+                  <div className="">
+                    <div className="text-sm flex items-center justify-between font-semibold text-gray-800 mb-2">
+                      <div className="flex gap-1 items-center">
+                        <FaLocationDot />
+                        {card.location}
+                      </div>
+                      <div className="flex text-blue-500">
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStarHalfAlt />
+                      </div>
+                    </div>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-1">
+                      {" "}
+                      {card.spot_name}{" "}
+                    </h2>
 
-        <div className="grid justify-items-center md:space-y-0 space-y-5 lg:grid-cols-4 md:gap-6 md:grid-cols-3 grid-cols-1">
+                    <p className="text-sm text-gray-700 leading-snug">
+                      {card.short_description}
+                    </p>
+                  </div>
+                  <div className="mt-3 card-actions items-center flex justify-center">
+                    <Link
+                      to={`/details/${card._id}`}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md transition duration-300 ease-in-out text-sm"
+                    >
+                      View Details
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {/* <div className="grid justify-items-center md:space-y-0 space-y-5 lg:grid-cols-4 md:gap-6 md:grid-cols-3 grid-cols-1">
           {cards.map((card) => (
             <div
               key={card._id}
@@ -133,14 +191,17 @@ const TouristSpotCard = () => {
                   </p>
                 </div>
                 <div className="mt-3 card-actions items-center flex justify-center">
-                  <Link to={`/details/${card._id}`} className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md transition duration-300 ease-in-out text-sm">
+                  <Link
+                    to={`/details/${card._id}`}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md transition duration-300 ease-in-out text-sm"
+                  >
                     View Details
                   </Link>
                 </div>
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </>
   );

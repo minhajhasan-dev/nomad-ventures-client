@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaArrowAltCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 const TouristSpotDetailsv2 = () => {
   const { id } = useParams();
@@ -142,7 +143,7 @@ const TouristSpotDetailsv2 = () => {
           </>
         ) : (
           <div className="flex  h-[calc(100vh-290px)] justify-center items-center">
-            <span className="loading loading-spinner loading-lg"></span>
+            <ClipLoader color="#1f68d6" size={50} />
           </div>
         )}
       </div>

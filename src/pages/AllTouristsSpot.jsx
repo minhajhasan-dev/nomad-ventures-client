@@ -3,9 +3,13 @@ import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import useAuth from "../Hooks/useAuth";
 
 const AllTouristsSpot = () => {
   const [cards, setCard] = useState([]);
+  const { loading } = useAuth();
+
   const [sortOrder, setSortOrder] = useState("");
   useEffect(() => {
     fetch("http://localhost:5000/touristSpot")
@@ -118,6 +122,7 @@ const AllTouristsSpot = () => {
       </div>
       {/* short functionality here */}
       <div className="flex max-w-7xl mb-2  mx-auto lg:justify-end justify-center">
+        {" "}
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
@@ -146,90 +151,98 @@ const AllTouristsSpot = () => {
         </div>
       </div>
       {/* all tourist spot here  */}
-      <div className="grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8  lg:max-w-7xl md:max-w-[670px] md:gap-20 mx-auto justify-items-center md:space-y-0 space-y-5  gap-10 mb-10   grid-cols-1 md:p-4">
-        {sortedCards.map((card) => (
-          <div
-            key={card._id}
-            className="w-[292px] lg:w-[292px] md:w-[230px] md:h-auto card bg-white shadow-lg rounded-lg overflow-hidden border  "
-          >
-            <img
-              className="w-full h-40 object-cover object-center"
-              src={
-                card.imageUrl ||
-                "https://media.moddb.com/images/articles/1/73/72743/image_error_full.png"
-              }
-              alt="Place"
-            />
-            <div className="p-4 card-body flex flex-col justify-between">
-              <div className="">
-                <div className="text-sm flex items-center justify-between font-semibold text-gray-800 mb-2">
-                  <div className="flex gap-1 items-center">
-                    <FaLocationDot className="text-blue-500" />
-                    {card.location}
+      {loading ? (
+        <div className="flex justify-center items-center h-[calc(100vh-500px)]">
+          <ClipLoader color="#1f68d6" size={50} />
+        </div>
+      ) : (
+        <div className="grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8  lg:max-w-7xl md:max-w-[670px] md:gap-20 mx-auto justify-items-center md:space-y-0 space-y-5  gap-10 mb-10   grid-cols-1 md:p-4">
+          {sortedCards.map((card) => (
+            <div
+              key={card._id}
+              className="w-[292px] lg:w-[292px] md:w-[230px] md:h-auto card bg-white shadow-lg rounded-lg overflow-hidden border  "
+            >
+              <img
+                className="w-full h-40 object-cover object-center"
+                src={
+                  card.imageUrl ||
+                  "https://media.moddb.com/images/articles/1/73/72743/image_error_full.png"
+                }
+                alt="Place"
+              />
+              <div className="p-4 card-body flex flex-col justify-between">
+                <div className="">
+                  <div className="text-sm flex items-center justify-between font-semibold text-gray-800 mb-2">
+                    <div className="flex gap-1 items-center">
+                      <FaLocationDot className="text-blue-500" />
+                      {card.location}
+                    </div>
+                    <div className="flex text-blue-500">
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStarHalfAlt />
+                    </div>
                   </div>
-                  <div className="flex text-blue-500">
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStarHalfAlt />
-                  </div>
-                </div>
-                <h2 className="text-lg font-semibold text-gray-800 mb-1">
-                  {" "}
-                  {card.touristSpotName}{" "}
-                </h2>
+                  <h2 className="text-lg font-semibold text-gray-800 mb-1">
+                    {" "}
+                    {card.touristSpotName}{" "}
+                  </h2>
 
-                <div className="flex justify-around">
                   <div className="flex justify-around">
                     <div className="flex justify-around">
-                      <div className="flex flex-wrap font-semibold  gap-1  w-full">
-                        <div className="text-sm p-1 w-full ">
-                          {card.shortDescription}
-                        </div>
-                        <div className="flex text-sm gap-6 w-full justify-between">
-                          <div className=" p-1 w-full flex flex-col ">
-                            <label className="text-xs font-normal">Cost</label>$
-                            {card.averageCost}
+                      <div className="flex justify-around">
+                        <div className="flex flex-wrap font-semibold  gap-1  w-full">
+                          <div className="text-sm p-1 w-full ">
+                            {card.shortDescription}
                           </div>
-                          <div className=" p-1 w-full flex flex-col ">
-                            <label className="text-xs font-normal">
-                              Duration
-                            </label>
-                            {card.travelTime} Days
+                          <div className="flex text-sm gap-6 w-full justify-between">
+                            <div className=" p-1 w-full flex flex-col ">
+                              <label className="text-xs font-normal">
+                                Cost
+                              </label>
+                              ${card.averageCost}
+                            </div>
+                            <div className=" p-1 w-full flex flex-col ">
+                              <label className="text-xs font-normal">
+                                Duration
+                              </label>
+                              {card.travelTime} Days
+                            </div>
                           </div>
-                        </div>
-                        <div className="text-sm flex gap-6 w-full justify-between">
-                          <div className=" p-1 w-full flex flex-col">
-                            <label className="text-xs font-normal">
-                              Visitor
-                            </label>
-                            {formatViews(card.totalVisitorsPerYear)} / Year
-                          </div>
-                          <div className=" p-1 w-full flex flex-col">
-                            <label className="text-xs font-normal">
-                              Season
-                            </label>
-                            {card.seasonality}
+                          <div className="text-sm flex gap-6 w-full justify-between">
+                            <div className=" p-1 w-full flex flex-col">
+                              <label className="text-xs font-normal">
+                                Visitor
+                              </label>
+                              {formatViews(card.totalVisitorsPerYear)} / Year
+                            </div>
+                            <div className=" p-1 w-full flex flex-col">
+                              <label className="text-xs font-normal">
+                                Season
+                              </label>
+                              {card.seasonality}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="mt-3 card-actions items-center flex justify-center">
-                <Link
-                  to={`/details/v2/${card._id}`}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md transition duration-300 ease-in-out text-sm"
-                >
-                  View Details
-                </Link>
+                <div className="mt-3 card-actions items-center flex justify-center">
+                  <Link
+                    to={`/details/v2/${card._id}`}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md transition duration-300 ease-in-out text-sm"
+                  >
+                    View Details
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
