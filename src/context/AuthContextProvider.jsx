@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import {
+  GithubAuthProvider,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -10,7 +11,6 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../config/firebase.config";
-import { GithubAuthProvider } from "firebase/auth/cordova";
 
 // creating a context
 export const AuthContext = createContext();
@@ -53,7 +53,7 @@ const AuthContextProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // login with Github 
+  // login with Github
   const loginWithGithub = () => {
     return signInWithPopup(auth, githubProvider);
   };
@@ -88,7 +88,7 @@ const AuthContextProvider = ({ children }) => {
     signInUser,
     updateUserProfile,
     loginWithEmail,
-    loginWithGithub
+    loginWithGithub,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

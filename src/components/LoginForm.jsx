@@ -5,7 +5,8 @@ import useAuth from "../Hooks/useAuth";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { user, googleSignIn, setLoading, loginWithEmail,loginWithGithub } = useAuth();
+  const { user, googleSignIn, setLoading, loginWithEmail, loginWithGithub } =
+    useAuth();
   console.log(user);
 
   // form function here
@@ -36,21 +37,21 @@ const LoginForm = () => {
       })
       .catch(() => {
         setLoading(false);
-        toast.error('Something went wrong');
+        toast.error("Something went wrong");
       });
   };
 
-const handleGithubSignIn = () => {
+  const handleGithubSignIn = () => {
     loginWithGithub()
-      .then((result) => {
+      .then(() => {
         setLoading(false);
         navigate(location?.state ? location.state : "/");
-        console.log(result);
         toast.success("Login Successfully");
       })
-      .catch(() => {
+      .catch((error) => {
         setLoading(false);
-        toast.error('Something went wrong');
+        toast.error("Something went wrong");
+        console.log(error);
       });
   };
 
@@ -106,7 +107,10 @@ const handleGithubSignIn = () => {
             Login with Google
           </span>
         </button>
-        <button onClick={handleGithubSignIn} className="w-full bg-gray-800 text-white py-2 px-4 mt-2 rounded-md hover:bg-gray-900 focus:outline-none">
+        <button
+          onClick={handleGithubSignIn}
+          className="w-full bg-gray-800 text-white py-2 px-4 mt-2 rounded-md hover:bg-gray-900 focus:outline-none"
+        >
           <span className="flex justify-center items-center gap-3">
             <FaGithub />
             Login with Github
