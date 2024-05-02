@@ -46,7 +46,6 @@ const CountryDetails = () => {
                   <div className="max-w-md">
                     <div className="flex text-3xl md:text-5xl mb-3 items-center justify-center gap-1">
                       <FaMapLocationDot />
-
                       {myCountry.countryName}
                     </div>
                     <p className="mb-5">{myCountry.shortDescription}</p>

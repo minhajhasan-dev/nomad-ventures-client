@@ -5,6 +5,8 @@ import { RouterProvider } from "react-router-dom";
 import Routes from "./Routes/Routes";
 import AuthContextProvider from "./context/AuthContextProvider";
 import "./index.css";
+import 'react-tooltip/dist/react-tooltip.css'
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

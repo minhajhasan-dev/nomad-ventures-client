@@ -1,10 +1,9 @@
-import { Link, NavLink } from "react-router-dom";
-
 import toast from "react-hot-toast";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import { Link, NavLink } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 import "../App.css";
 import useAuth from "../Hooks/useAuth";
-
 const Navbar = () => {
   const { user, logOut } = useAuth();
 
@@ -33,7 +32,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] border shadow bg-base-100 rounded-box w-44 p-4 text-center space-y-4"
+              className="menu menu-sm dropdown-content mt-3 z-[1] border border-blue-400 shadow bg-base-100 rounded-box w-44 p-4 text-center space-y-4"
             >
               <NavLink
                 to={"/"}
@@ -201,14 +200,24 @@ const Navbar = () => {
                 </div>
                 <div
                   tabIndex={0}
-                  className="mt-3 z-[1]  shadow menu menu-sm dropdown-content bg-base-100 border rounded-box p-2 w-52"
+                  className="mt-3 z-[1]  shadow menu menu-sm dropdown-content bg-base-100 border border-blue-400 rounded-box p-2 w-52"
                 >
                   <div className="h-32 flex flex-col items-center justify-evenly">
                     <p className="text-xl bold"> {user.displayName} </p>
 
-                    <button onClick={handleLogOut} className="btn ">
+                    <button
+                      onClick={handleLogOut}
+                      className="btn bg-blue-500 hover:bg-blue-600 text-white "
+                      id="my-tooltip"
+                    >
                       Log Out
                     </button>
+                    <Tooltip
+                      place="bottom-start"
+                      content="Click here to Log Out"
+                      anchorId="my-tooltip"
+                      variant="warning"
+                    />
                   </div>
                 </div>
               </div>

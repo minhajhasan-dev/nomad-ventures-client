@@ -49,7 +49,7 @@ const AddTouristSpotForm = () => {
   };
   return (
     <div
-      className="border lg:max-w-7xl  rounded-xl p-10  shadow-xl m-4 mb-20
+      className="border border-blue-400 lg:max-w-7xl  rounded-xl p-10  shadow-xl m-4 mb-20
       mx-auto"
     >
       <form onSubmit={handleAdd} className="  ">

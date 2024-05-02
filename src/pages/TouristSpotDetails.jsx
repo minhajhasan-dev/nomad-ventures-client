@@ -22,7 +22,7 @@ const TouristSpotDetails = () => {
   return (
     <>
       <div className="">
-        <div className="h-[calc(100vh-260px)]">
+        <div className="md:h-[calc(100vh-260px)]">
           {card ? (
             <>
               <div
