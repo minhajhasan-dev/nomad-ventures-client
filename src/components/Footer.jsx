@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className=" bg-[#F2F2F2] text-neutral">
-      <footer className="footer  p-10 container  mx-auto  bg-[#F2F2F2] text-neutral">
+    <div className=" bg-base-300 ">
+      <footer className="footer  p-10 container  mx-auto ">
         <aside className="flex flex-col md:items-center">
           <Link
             to={"/"}
@@ -14,7 +14,9 @@ const Footer = () => {
           >
             Nomad Ventures
           </Link>
-          <p className="font-cookie md:text-2xl text-xl">Explore The World With Us</p>
+          <p className="font-cookie md:text-2xl text-xl">
+            Explore The World With Us
+          </p>
         </aside>
         <div>
           <h6 className="footer-title">Contact</h6>
@@ -28,7 +30,7 @@ const Footer = () => {
             <MdEmail /> contact@nomadventures.com
           </p>
         </div>
-        <nav>
+        <nav className="flex flex-col justify-self-center">
           <h6 className="footer-title">Social</h6>
           <div className="grid grid-flow-col gap-4">
             <a>

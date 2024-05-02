@@ -11,6 +11,7 @@ import TouristSpotDetails from "../pages/TouristSpotDetails";
 import TouristSpotDetailsv2 from "../pages/TouristSpotDetailsv2";
 import Update from "../pages/Update";
 import PrivateRoute from "../utility/PrivateRoute";
+import CountryDetails from "../pages/CountryDetails";
 
 const Routes = createBrowserRouter([
   {
@@ -74,6 +75,14 @@ const Routes = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/country/:id",
+        element: (
+          <PrivateRoute>
+            <CountryDetails />
+          </PrivateRoute>
+        ),
+      }
     ],
   },
 ]);

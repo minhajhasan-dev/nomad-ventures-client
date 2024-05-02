@@ -160,7 +160,7 @@ const AllTouristsSpot = () => {
           {sortedCards.map((card) => (
             <div
               key={card._id}
-              className="w-[292px] lg:w-[292px] md:w-[230px] md:h-auto card bg-white shadow-lg rounded-lg overflow-hidden border  "
+              className="w-[292px] lg:w-[292px] md:w-[230px] md:h-auto card bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition duration-300 ease-in-out"
             >
               <img
                 className="w-full h-40 object-cover object-center"
@@ -193,18 +193,18 @@ const AllTouristsSpot = () => {
                   <div className="flex justify-around">
                     <div className="flex justify-around">
                       <div className="flex justify-around">
-                        <div className="flex flex-wrap font-semibold  gap-1  w-full">
+                        <div className="flex  flex-wrap font-semibold  gap-1  w-full">
                           <div className="text-sm p-1 w-full ">
                             {card.shortDescription}
                           </div>
-                          <div className="flex text-sm gap-6 w-full justify-between">
+                          {/* <div className="flex  text-sm gap-6 w-full justify-between">
                             <div className=" p-1 w-full flex flex-col ">
                               <label className="text-xs font-normal">
                                 Cost
                               </label>
                               ${card.averageCost}
                             </div>
-                            <div className=" p-1 w-full flex flex-col ">
+                            <div className="p-1 ml-20 w-full flex flex-col ">
                               <label className="text-xs font-normal">
                                 Duration
                               </label>
@@ -214,23 +214,47 @@ const AllTouristsSpot = () => {
                           <div className="text-sm flex gap-6 w-full justify-between">
                             <div className=" p-1 w-full flex flex-col">
                               <label className="text-xs font-normal">
-                                Visitor
+                                Visitor / Year
                               </label>
-                              {formatViews(card.totalVisitorsPerYear)} / Year
+                              {formatViews(card.totalVisitorsPerYear)} 
                             </div>
-                            <div className=" p-1 w-full flex flex-col">
+                            <div className="ml-20 p-1 w-full flex flex-col">
                               <label className="text-xs font-normal">
                                 Season
                               </label>
                               {card.seasonality}
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="mt-3 card-actions items-center flex justify-center">
+                <div className=" card-actions items-center flex justify-center">
+                  <div className="font-semibold">
+                    <div className="flex  text-sm gap-6 w-full justify-between">
+                      <div className=" p-1 w-full flex flex-col ">
+                        <label className="text-xs font-normal">Cost</label>$
+                        {card.averageCost}
+                      </div>
+                      <div className="p-1 ml-20 w-full flex flex-col ">
+                        <label className="text-xs font-normal">Duration</label>
+                        {card.travelTime} Days
+                      </div>
+                    </div>
+                    <div className="text-sm flex gap-6 w-full justify-between">
+                      <div className=" p-1 w-full flex flex-col">
+                        <label className="text-xs font-normal">
+                          Visitor / Year
+                        </label>
+                        {formatViews(card.totalVisitorsPerYear)}
+                      </div>
+                      <div className="ml-20 p-1 w-full flex flex-col">
+                        <label className="text-xs font-normal">Season</label>
+                        {card.seasonality}
+                      </div>
+                    </div>
+                  </div>
                   <Link
                     to={`/details/v2/${card._id}`}
                     className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md transition duration-300 ease-in-out text-sm"
