@@ -6,15 +6,15 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div className=" bg-[#F2F2F2] text-neutral">
-      <footer className="footer p-10 container  mx-auto  bg-[#F2F2F2] text-neutral">
+      <footer className="footer  p-10 container  mx-auto  bg-[#F2F2F2] text-neutral">
         <aside className="flex flex-col md:items-center">
           <Link
             to={"/"}
-            className="font-cookie text-blue-500 md:text-6xl text-6xl"
+            className="font-cookie text-blue-500 md:text-6xl text-4xl"
           >
             Nomad Ventures
           </Link>
-          <p className="font-cookie text-2xl">Explore The World With Us</p>
+          <p className="font-cookie md:text-2xl text-xl">Explore The World With Us</p>
         </aside>
         <div>
           <h6 className="footer-title">Contact</h6>

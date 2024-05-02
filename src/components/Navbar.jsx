@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 
 import toast from "react-hot-toast";
+import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import "../App.css";
 import useAuth from "../Hooks/useAuth";
 
@@ -22,21 +23,8 @@ const Navbar = () => {
       <div className="navbar container mx-auto ">
         <div className="navbar-start">
           <div className="dropdown z-10">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-2xl">
+              <HiOutlineMenuAlt2 />
             </div>
             <ul
               tabIndex={0}
@@ -97,7 +85,7 @@ const Navbar = () => {
           </div>
           <Link
             to={"/"}
-            className="font-cookie text-blue-500 md:text-5xl text-2xl"
+            className="font-cookie text-blue-500 md:text-5xl text-3xl"
           >
             Nomad Ventures
           </Link>
