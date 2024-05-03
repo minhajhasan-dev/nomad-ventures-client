@@ -4,9 +4,7 @@ Welcome to Nomad Ventures!
 
 ### Category: **Southeast Asia**
 
-### Live Site:
-
-[Nomad Ventures]("https://nomad-ventures-3ad90.web.app/")
+### Live Site: [Nomad Ventures](https://nomad-ventures-3ad90.web.app)
 
 ## Features
 
