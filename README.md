@@ -3,9 +3,13 @@
 Welcome to Nomad Ventures!
 
 ### Category: **Southeast Asia**
-### Live Site: [Nomad Ventures]("https://nomad-ventures-3ad90.web.app/") 
+
+### Live Site:
+
+[Nomad Ventures]("https://nomad-ventures-3ad90.web.app/")
 
 ## Features
+
 ### Nomad Ventures offers a variety of features to enhance your experience:
 
 - Add Tourist Spots: Users can add new tourist spots, enriching our database and sharing hidden gems with the community.
