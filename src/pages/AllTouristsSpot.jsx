@@ -12,7 +12,7 @@ const AllTouristsSpot = () => {
 
   const [sortOrder, setSortOrder] = useState("");
   useEffect(() => {
-    fetch("http://localhost:5000/touristSpot")
+    fetch("https://nomad-ventures-server.vercel.app/touristSpot")
       .then((res) => res.json())
       .then((data) => {
         setCard(data);

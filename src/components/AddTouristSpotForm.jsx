@@ -36,7 +36,7 @@ const AddTouristSpotForm = () => {
     };
     // we need to send this image link to the database as well
 
-    fetch("http://localhost:5000/touristSpot", {
+    fetch("https://nomad-ventures-server.vercel.app/touristSpot", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(touristSpot),

@@ -30,7 +30,7 @@ const Update = () => {
       travelTime,
       totalVisitorsPerYear,
     };
-    fetch(`http://localhost:5000/touristSpot/${id}`, {
+    fetch(`https://nomad-ventures-server.vercel.app/touristSpot/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +49,7 @@ const Update = () => {
   };
   const [currentData, setCurrentData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/touristSpot")
+    fetch("https://nomad-ventures-server.vercel.app/touristSpot")
       .then((res) => res.json())
       .then((data) => {
         const foundCard = data.find((item) => item._id === id);

@@ -11,14 +11,14 @@ const CountryDetails = () => {
   const [myCard, setMyCard] = useState([]);
   console.log(id);
   useEffect(() => {
-    fetch("http://localhost:5000/countries")
+    fetch("https://nomad-ventures-server.vercel.app/countries")
       .then((res) => res.json())
       .then((data) => {
         const foundCountry = data.find((item) => item.countryName === id);
         console.log(myCountry);
         setMyCountry(foundCountry);
       });
-    fetch("http://localhost:5000/touristSpot")
+    fetch("https://nomad-ventures-server.vercel.app/touristSpot")
       .then((res) => res.json())
       .then((data) => {
         const foundCard = data.filter((item) => item.countryName === id);

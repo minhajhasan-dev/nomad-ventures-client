@@ -11,7 +11,7 @@ const TouristSpotDetailsv2 = () => {
   const [data, setData] = useState([]);
   const [card, setCard] = useState(null);
   useEffect(() => {
-    fetch("http://localhost:5000/touristSpot")
+    fetch("https://nomad-ventures-server.vercel.app/touristSpot")
       .then((res) => res.json())
       .then((data) => {
         const foundCard = data.find((item) => item._id === id);

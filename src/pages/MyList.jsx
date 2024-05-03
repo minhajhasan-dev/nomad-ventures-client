@@ -12,7 +12,7 @@ const MyList = () => {
   // import user from context
   const { user } = useAuth();
   useEffect(() => {
-    fetch("http://localhost:5000/touristSpot")
+    fetch("https://nomad-ventures-server.vercel.app/touristSpot")
       .then((res) => res.json())
       .then((data) => {
         const foundData = data.filter((item) => item.userEmail === user.email);
@@ -35,7 +35,7 @@ const MyList = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/touristSpot/${id}`, {
+        fetch(`https://nomad-ventures-server.vercel.app/touristSpot/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

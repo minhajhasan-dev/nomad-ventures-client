@@ -10,7 +10,7 @@ const TouristSpotCard = () => {
   const [cards, setCards] = useState([]);
   const { loading, setLoading } = useAuth();
   useEffect(() => {
-    fetch("http://localhost:5000/cards")
+    fetch("https://nomad-ventures-server.vercel.app/cards")
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);

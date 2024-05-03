@@ -9,7 +9,7 @@ const CountryCard = () => {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/countries")
+    fetch("https://nomad-ventures-server.vercel.app/countries")
       .then((res) => res.json())
       .then((data) => {
         setCountries(data);
